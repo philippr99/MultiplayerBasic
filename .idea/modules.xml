@@ -3,6 +3,8 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/MultiPlayerGame.iml" filepath="$PROJECT_DIR$/MultiPlayerGame.iml" />
+      <module fileurl="file://$PROJECT_DIR$/NetworkLib/NetworkLib.iml" filepath="$PROJECT_DIR$/NetworkLib/NetworkLib.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Server/Server.iml" filepath="$PROJECT_DIR$/Server/Server.iml" />
     </modules>
   </component>
 </project>
