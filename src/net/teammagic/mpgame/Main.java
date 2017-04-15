@@ -1,13 +1,16 @@
 package net.teammagic.mpgame;
-
 import net.philippr99.networklib.CostumClientSocket;
 
-/**
- * Created by chome on 4/14/17.
- */
+
 public class Main {
 
     public static void main(String[] args) {
+        PlayGround pg = new PlayGround();
+
+        pg.setSize(500, 500);
+        pg.setLocationRelativeTo(null);
+        pg.setVisible(true);
+
         CostumClientSocket client = new CostumClientSocket("localhost",5088);
     }
 }
