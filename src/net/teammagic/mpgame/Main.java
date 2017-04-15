@@ -5,6 +5,7 @@ import net.philippr99.networklib.handler.PacketHandler;
 import net.philippr99.networklib.handler.PacketSplitterHandler;
 import net.philippr99.networklib.packet.PacketManager;
 import net.philippr99.networklib.packets.IntegerPacket;
+import net.philippr99.networklib.packets.StringPacket;
 import net.philippr99.networklib.pipe.Pipe;
 
 
@@ -18,6 +19,11 @@ public class Main {
         pg.setVisible(true);
 
         PacketManager.getInstance().addPacket(1, IntegerPacket.class);
-        CustomClientSocket client = new CustomClientSocket("localhost",5088, new Pipe().addHandler("Splitter",new PacketSplitterHandler()).addHandler("PacketCreator",new PacketCreatorHandler()),null, new PacketHandler());
+        PacketManager.getInstance().addPacket(3, StringPacket.class);
+        CustomClientSocket client = new CustomClientSocket("localhost",
+                5088, new Pipe().addHandler("Splitter",
+                new PacketSplitterHandler()).addHandler("PacketCreator",new PacketCreatorHandler()),
+                null,
+                new PacketHandler());
     }
 }

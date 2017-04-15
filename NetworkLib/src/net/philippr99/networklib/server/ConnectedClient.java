@@ -3,6 +3,7 @@ package net.philippr99.networklib.server;
 import net.philippr99.networklib.intern.BufferSerializer;
 import net.philippr99.networklib.packet.Packet;
 import net.philippr99.networklib.packets.IntegerPacket;
+import net.philippr99.networklib.packets.StringPacket;
 import net.philippr99.networklib.pipe.Pipe;
 import net.philippr99.networklib.streams.CostumSocketOutputStreamTest;
 
@@ -49,6 +50,7 @@ public class ConnectedClient implements Runnable{
 
            // new Thread(new CostumSocketOutputStreamTest(new BufferSerializer(),outputStream)).start(); //TODO: reset through send Packet
             sendPacket(new IntegerPacket(8)); //sending IntegerPacket
+            sendPacket(new StringPacket("Halt dein Maul geht es? :)"));
             sendPacket(new IntegerPacket(1234)); //sending IntegerPacket
             sendPacket(new IntegerPacket(9976)); //sending IntegerPacket
 
