@@ -5,6 +5,7 @@ import java.awt.*;
 import static java.lang.Math.*;
 
 public class OwnPlayer extends Player implements Runnable {
+    public boolean useKeyboard = true;
     private int mouseX, mouseY;
 
     public OwnPlayer(double x, double y, double w, double h) {
@@ -16,16 +17,23 @@ public class OwnPlayer extends Player implements Runnable {
     }
 
     @Override public void run() {
-        double angle = angleFrom((int) x, (int) y, mouseX, mouseY);
-        x += (int) round(speed * sin(angle));
-        y -= (int) round(speed * cos(angle));
-    }
+        if (useKeyboard) return;
 
-    private double angleFrom(int APositionX, int APositionY, int BPositionX, int BPositionY) {
-        int dx = BPositionX - APositionX;
-        int dy = BPositionY - APositionY;
+        double dX = mouseX - x;
+        double dY = mouseY - y;
 
-        return atan2(dy, dx) + 90;
+        double dirLen = sqrt(dX * dX + dY * dY);
+
+        if (dirLen > speed){
+            x += dX / dirLen * speed;
+            y += dY / dirLen * speed;
+        } else {
+            x += dX / 2;
+            y += dY / 2;
+        }
+
+        //System.out.println("Position:  x: " + x + ", y: " + y);
+        //System.out.println("Mouse:  x: " + mouseX + ", y: " + mouseY);
     }
 
     public void setMousePos(int x, int y){

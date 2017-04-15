@@ -2,6 +2,7 @@ package net.teammagic.mpgame;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.KeyAdapter;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.LinkedList;
@@ -9,25 +10,28 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
 
-public class PlayGround extends JFrame{
+public class PlayGround extends JFrame {
     LinkedList<Player> players = new LinkedList<>();
-    OwnPlayer ownPlayer;
+    static OwnPlayer ownPlayer;
 
     public PlayGround() {
         this.add(initializeCanvas());
 
         ownPlayer = new OwnPlayer(50, 50);
-        new Thread(ownPlayer).start();
 
         ScheduledExecutorService executor = Executors.newScheduledThreadPool(2);
-        executor.scheduleAtFixedRate(ownPlayer, 0, 50, TimeUnit.MILLISECONDS);
-        executor.scheduleAtFixedRate(() -> repaint(), 0, 50, TimeUnit.MILLISECONDS);
+        executor.scheduleAtFixedRate(ownPlayer, 0, 20, TimeUnit.MILLISECONDS);
+        executor.scheduleAtFixedRate(() -> repaint(), 0, 20, TimeUnit.MILLISECONDS);
     }
 
     public JComponent initializeCanvas() {
-        return new JComponent() {
-
+        JComponent comp = new JComponent() {
+            KeyAdapter keyAdapter = initializeKeys();
             MouseAdapter mouseAdapter = initializeMouse();
+
+            {
+                addKeyListener(keyAdapter);
+            }
 
             {
                 addMouseListener(mouseAdapter);
@@ -44,11 +48,15 @@ public class PlayGround extends JFrame{
                     g2d.draw(player);
             }
         };
+
+        comp.setFocusable(true);
+        return comp;
     }
 
     private MouseAdapter initializeMouse() {
         return new MouseAdapter() {
             public void mousePressed(MouseEvent e) {
+                ownPlayer.useKeyboard = false;
                 ownPlayer.setMousePos(e.getPoint());
             }
 
@@ -56,13 +64,13 @@ public class PlayGround extends JFrame{
                 ownPlayer.setMousePos(e.getPoint());
             }
 
-            public void mouseMoved(MouseEvent e) {
-                ownPlayer.setMousePos(e.getPoint());
-            }
-
             public void mouseReleased(MouseEvent e) {
-
+                ownPlayer.useKeyboard = true;
             }
         };
+    }
+
+    private KeyAdapter initializeKeys(){
+        return new MultiKeyPressListener();
     }
 }
