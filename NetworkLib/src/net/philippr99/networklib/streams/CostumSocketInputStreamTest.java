@@ -22,9 +22,10 @@ public class CostumSocketInputStreamTest implements Runnable{
             {
                 synchronized (buffer)
                 {
-                    int input = buffer.readInt();
-                    if(input != -1)
-                        System.out.println(input);
+                    int in = buffer.readInt();
+                    String input = buffer.readString();
+                    if(input != null && in != -1)
+                        System.out.println(input+";"+in);
                 }
             }
         }

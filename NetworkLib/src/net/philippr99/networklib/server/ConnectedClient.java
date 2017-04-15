@@ -17,12 +17,10 @@ public class ConnectedClient implements Runnable{
     private BufferedInputStream input;
     private BufferedOutputStream outputStream;
     private Socket clientSocket;
-    private Buffer outputBuffer;
 
     public ConnectedClient(Socket socket)
     {
         this.clientSocket =socket;
-        this.outputBuffer = new Buffer();
     }
 
     @Override
@@ -31,10 +29,10 @@ public class ConnectedClient implements Runnable{
             input = new BufferedInputStream(clientSocket.getInputStream());
             outputStream = new BufferedOutputStream(clientSocket.getOutputStream());
 
-            new Thread(new CostumSocketOutputStreamTest(outputBuffer,outputStream)).start(); //Outputstream test
+            new Thread(new CostumSocketOutputStreamTest(new Buffer(outputStream),outputStream)).start(); //Outputstream test
 
             System.out.println("Connected -> "+clientSocket.getInetAddress());
-            Buffer inputBuffer = new Buffer();
+            Buffer inputBuffer = new Buffer(null);
             while (input.read() != -1) {
                 inputBuffer.readIn(input);
             }

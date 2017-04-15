@@ -42,7 +42,7 @@ public class CostumClientSocket {
             outputStream = new BufferedOutputStream(socket.getOutputStream());
 
 
-            buffer = new Buffer(); //call after initializing buffer
+            buffer = new Buffer(outputStream); //call after initializing buffer
             new Thread(new CostumSocketInputStreamTest(buffer)).start(); //IntReadingTestHandler
 
             int result = 0;
@@ -55,7 +55,7 @@ public class CostumClientSocket {
                 }
             }while(result != -1); //also killed by overflowing buffer;
 
-            System.out.print("Killed or closed!");
+            System.out.print("Killed or closed! Maybe Bufferoverflow, too long strings or packet size!!");
 
             input.close();
             outputStream.close();

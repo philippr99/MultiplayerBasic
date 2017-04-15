@@ -26,8 +26,8 @@ public class CostumSocketOutputStreamTest implements Runnable{
             {
                 int ran = new Random().nextInt(20000);
                 System.out.println("Sent: "+ran);
+                buffer.writeString("Gesendet: "+ran+" ->");
                 buffer.writeInt(ran);
-                buffer.writeOut(out);
                 try {
                     Thread.sleep(2000);
                 } catch (InterruptedException e) {
