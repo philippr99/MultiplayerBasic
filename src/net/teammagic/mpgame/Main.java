@@ -1,5 +1,11 @@
 package net.teammagic.mpgame;
-import net.philippr99.networklib.CostumClientSocket;
+import net.philippr99.networklib.CustomClientSocket;
+import net.philippr99.networklib.handler.PacketCreatorHandler;
+import net.philippr99.networklib.handler.PacketHandler;
+import net.philippr99.networklib.handler.PacketSplitterHandler;
+import net.philippr99.networklib.packet.PacketManager;
+import net.philippr99.networklib.packets.IntegerPacket;
+import net.philippr99.networklib.pipe.Pipe;
 
 
 public class Main {
@@ -11,6 +17,7 @@ public class Main {
         pg.setLocationRelativeTo(null);
         pg.setVisible(true);
 
-        CostumClientSocket client = new CostumClientSocket("localhost",5088);
+        PacketManager.getInstance().addPacket(1, IntegerPacket.class);
+        CustomClientSocket client = new CustomClientSocket("localhost",5088, new Pipe().addHandler("Splitter",new PacketSplitterHandler()).addHandler("PacketCreator",new PacketCreatorHandler()),null, new PacketHandler());
     }
 }

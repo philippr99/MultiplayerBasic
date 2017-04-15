@@ -12,19 +12,23 @@ import java.nio.charset.Charset;
  */
 
 //Not Threadsafe!
-public class Buffer {
+public class BufferSerializer {
 
     private int MAX = 65535;
-    private byte[] buffer = new byte[MAX];
-    private int pointer = 0;
+    public byte[] buffer = new byte[MAX];
+    public int pointer = 0;
 
-    private BufferedOutputStream out;
-
-    public Buffer(BufferedOutputStream out)
+    public BufferSerializer()
     {
-        this.out = out;
+
     }
 
+    /**
+     * A function to read the bytes into the intern buffer
+     * @param reader
+     * @return int successfull or not
+     * @throws IOException
+     */
     public int readIn(BufferedInputStream reader) throws IOException {
         if(!((pointer+reader.available()) >= MAX))
         {
@@ -39,10 +43,14 @@ public class Buffer {
         }
     }
 
-    private void writeOut(int size)
+    /**
+     * A function to send the intern buffer to the outputstream
+     * @param out
+     */
+    public void writeOut(BufferedOutputStream out)
     {
         try {
-            out.write(buffer,pointer-size,size); //to only write the amount of bytes
+            out.write(buffer,0,pointer); //to only write the amount of bytes
             out.flush();
             pointer = 0;
         } catch (IOException e) {
@@ -50,7 +58,10 @@ public class Buffer {
         }
     }
 
-    //Write Integer
+    /**
+     * Writing an int to the intern buffer
+     * @param i
+     */
     public void writeInt(int i)
     {
         buffer[pointer+0] = (byte)( (i >> 24) & 0xff);
@@ -59,10 +70,12 @@ public class Buffer {
         buffer[pointer+3] = (byte)( (i >> 0) & 0xff);
 
         pointer+=4;
-        writeOut(4);
     }
 
-    //Read Integer
+    /**
+     * Reading an int from the intern buffer, and resetting the buffer
+     * @return result is positive or -1 for error
+     */
     public int readInt()
     {
         int result = readInternInt();
@@ -70,7 +83,11 @@ public class Buffer {
         return result;
     }
 
-    private int readInternInt()
+    /**
+     * Reading an int from the intern buffer without resetting the buffer
+     * @return
+     */
+    public int readInternInt()
     {
         if(pointer >= 4)
         {
@@ -84,9 +101,11 @@ public class Buffer {
         return -1;
     }
 
-    private void readInternIntSuccessfully()
+    /**
+     * Resetting the intern buffer after reading an int
+     */
+    public void readInternIntSuccessfully()
     {
-        pointer-=4; //setting back the pointer
         backShiftArray(4);
     }
 
@@ -100,10 +119,12 @@ public class Buffer {
             buffer[pointer] = b[i];
             pointer++;
         }
-
-        writeOut(size); //string length
     }
 
+    /**
+     * Reading an String from the intern buffer
+     * @return
+     */
     public String readString()
     {
         int size = readInternInt(); //like getting a local copy of int
@@ -116,21 +137,49 @@ public class Buffer {
             {
                 str[i] = buffer[i];
             }
-            pointer-=size;
             backShiftArray(size);
 
             return new String(str,Charset.forName("UTF-8"));
-        }else
-        {
-
         }
-
         return null;
     }
 
-    public void backShiftArray(int b) //calling with the ints you used for int f.e 4
+    public void writeByte(Byte b)
     {
+        buffer[pointer] = b;
+        pointer++;
+    }
+
+    public byte readByte()
+    {
+        byte b = buffer[0];
+        backShiftArray(1); //TODO: don't forget
+        return b;
+    }
+
+    /**
+     * A little util to reset the intern buffer
+     * @param b
+     */
+    private void backShiftArray(int b) //calling with the ints you used for int f.e 4
+    {
+        pointer-=b;
         for(int i = b; i <= pointer+b; i++) buffer[i-b] = buffer[i];
+    }
+
+    /**
+     * Copying the old buffer into the new one
+     * @param old
+     */
+    public void copyBuffer(BufferSerializer old)
+    {
+        int size = old.pointer;
+        for(int i = 0; i < size; i++)
+        {
+            buffer[pointer] = old.buffer[i];
+            old.pointer--;
+            pointer++;
+        }
     }
 
 }

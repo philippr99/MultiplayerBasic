@@ -1,9 +1,8 @@
 package net.philippr99.networklib.streams;
 
-import net.philippr99.networklib.intern.Buffer;
+import net.philippr99.networklib.intern.BufferSerializer;
 
 import java.io.BufferedOutputStream;
-import java.io.OutputStream;
 import java.util.Random;
 
 /**
@@ -11,10 +10,10 @@ import java.util.Random;
  */
 public class CostumSocketOutputStreamTest implements Runnable{
 
-        private Buffer buffer;
+        private BufferSerializer buffer;
         private BufferedOutputStream out;
 
-        public CostumSocketOutputStreamTest(Buffer buffer, BufferedOutputStream out)
+        public CostumSocketOutputStreamTest(BufferSerializer buffer, BufferedOutputStream out)
         {
             this.buffer = buffer;
             this.out = out;
@@ -28,6 +27,7 @@ public class CostumSocketOutputStreamTest implements Runnable{
                 System.out.println("Sent: "+ran);
                 buffer.writeString("Gesendet: "+ran+" ->");
                 buffer.writeInt(ran);
+                buffer.writeOut(out);
                 try {
                     Thread.sleep(2000);
                 } catch (InterruptedException e) {
