@@ -1,4 +1,5 @@
 package net.teammagic.mpgame;
+
 import net.philippr99.customnetworking.packets.HearthbeatPacket;
 import net.philippr99.networklib.CustomClientSocket;
 import net.philippr99.networklib.handler.PacketCreatorHandler;
@@ -13,9 +14,7 @@ import net.philippr99.customnetworking.client.ClientPacketHandler;
 
 import java.io.IOException;
 
-
 public class Main {
-
     public static void main(String[] args) {
         PlayGround pg = new PlayGround();
 
