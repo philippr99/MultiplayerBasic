@@ -1,5 +1,6 @@
 package net.philippr99.networklib.handler;
 
+import net.philippr99.networklib.CustomClientSocket;
 import net.philippr99.networklib.intern.BufferSerializer;
 import net.philippr99.networklib.packet.Packet;
 import net.philippr99.networklib.packet.PacketManager;
@@ -10,7 +11,7 @@ import net.philippr99.networklib.pipe.Handler;
  */
 public class PacketCreatorHandler implements Handler<BufferSerializer, Packet> {
     @Override
-    public Packet handle(BufferSerializer in) {
+    public Packet handle(CustomClientSocket socket, BufferSerializer in) {
         int id = in.readInt();
         Packet packet = PacketManager.getInstance().getPacketForID(id);
         if(packet == null)return null;
@@ -18,4 +19,5 @@ public class PacketCreatorHandler implements Handler<BufferSerializer, Packet> {
         packet.read(in);
         return packet;
     }
+
 }

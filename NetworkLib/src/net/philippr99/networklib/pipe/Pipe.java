@@ -1,4 +1,5 @@
 package net.philippr99.networklib.pipe;
+import net.philippr99.networklib.CustomClientSocket;
 import net.philippr99.networklib.intern.BufferSerializer;
 
 import java.util.HashMap;
@@ -17,13 +18,13 @@ public class Pipe {
 
     }
 
-    public Object handle(Object element)
+    public Object handle(CustomClientSocket socket, Object element)
     {
         Object input = element;
         for(Handler h : handlers.values())
         {
             if(input == null)return null;
-            input = h.handle(input);
+            input = h.handle(socket,input);
         }
 
         return input;

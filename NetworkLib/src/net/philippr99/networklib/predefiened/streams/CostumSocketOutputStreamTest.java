@@ -1,4 +1,4 @@
-package net.philippr99.networklib.streams;
+package net.philippr99.networklib.predefiened.streams;
 
 import net.philippr99.networklib.intern.BufferSerializer;
 

@@ -11,7 +11,6 @@ import java.nio.charset.Charset;
  * Created by chome on 4/14/17.
  */
 
-//Not Threadsafe!
 public class BufferSerializer {
 
     private int MAX = 65535;
@@ -111,8 +110,8 @@ public class BufferSerializer {
 
     public void writeString(String string)
     {
-        int size = string.length();
         byte b[] = string.getBytes(Charset.forName("UTF-8"));
+        int size = b.length;
         writeInt(size);
         for(int i = 0; i < size; i++)
         {
@@ -144,12 +143,20 @@ public class BufferSerializer {
         return null;
     }
 
+    /**
+     * Writing a byte to the buffer
+     * @param b
+     */
     public void writeByte(Byte b)
     {
         buffer[pointer] = b;
         pointer++;
     }
 
+    /**
+     * Reading a byte from the buffer
+     * @return
+     */
     public byte readByte()
     {
         byte b = buffer[0];

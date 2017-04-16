@@ -1,5 +1,6 @@
 package net.philippr99.networklib.handler;
 
+import net.philippr99.networklib.CustomClientSocket;
 import net.philippr99.networklib.intern.BufferSerializer;
 import net.philippr99.networklib.pipe.Handler;
 
@@ -10,7 +11,7 @@ public class PacketSplitterHandler implements Handler<BufferSerializer, BufferSe
 
     //TODO: IMPORTANT TO DONT CREATE EVERYTIME A NEW BUFFER JUST WAIT WITH THE OTHER SIZE
     @Override
-    public BufferSerializer handle(BufferSerializer in) {
+    public BufferSerializer handle(CustomClientSocket socket, BufferSerializer in) {
         if(in.readInternInt() != -1)
         {
             int size = in.readInt();
