@@ -11,8 +11,8 @@ import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
 
 public class PlayGround extends JFrame {
-    LinkedList<Player> players = new LinkedList<>();
     static OwnPlayer ownPlayer;
+    LinkedList<Player> players = new LinkedList<>();
 
     public PlayGround() {
         this.add(initializeCanvas());
@@ -70,7 +70,7 @@ public class PlayGround extends JFrame {
         };
     }
 
-    private KeyAdapter initializeKeys(){
+    private KeyAdapter initializeKeys() {
         return new MultiKeyPressListener();
     }
 }

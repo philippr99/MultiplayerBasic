@@ -2,7 +2,7 @@ package net.teammagic.mpgame;
 
 import java.awt.*;
 
-import static java.lang.Math.*;
+import static java.lang.Math.sqrt;
 
 public class OwnPlayer extends Player implements Runnable {
     public boolean useKeyboard = true;
@@ -16,7 +16,8 @@ public class OwnPlayer extends Player implements Runnable {
         super(x, y);
     }
 
-    @Override public void run() {
+    @Override
+    public void run() {
         if (useKeyboard) return;
 
         double dX = mouseX - x;
@@ -24,7 +25,7 @@ public class OwnPlayer extends Player implements Runnable {
 
         double dirLen = sqrt(dX * dX + dY * dY);
 
-        if (dirLen > speed){
+        if (dirLen > speed) {
             x += dX / dirLen * speed;
             y += dY / dirLen * speed;
         } else {
@@ -36,12 +37,12 @@ public class OwnPlayer extends Player implements Runnable {
         //System.out.println("Mouse:  x: " + mouseX + ", y: " + mouseY);
     }
 
-    public void setMousePos(int x, int y){
+    public void setMousePos(int x, int y) {
         mouseX = x;
         mouseY = y;
     }
 
-    public void setMousePos(Point p){
+    public void setMousePos(Point p) {
         mouseX = p.x;
         mouseY = p.y;
     }

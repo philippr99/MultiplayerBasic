@@ -1,17 +1,18 @@
 package net.philippr99.networklib;
 
-import net.philippr99.networklib.packet.PacketHandler;
 import net.philippr99.networklib.intern.BufferSerializer;
 import net.philippr99.networklib.packet.Packet;
 import net.philippr99.networklib.pipe.Pipe;
 
-import java.io.*;
+import java.io.BufferedInputStream;
+import java.io.BufferedOutputStream;
+import java.io.IOException;
 import java.net.Socket;
 
 /**
  * Created by chome on 4/14/17.
  */
-public class CustomClientSocket{
+public class CustomClientSocket {
 
     public Socket socket;
     protected BufferedInputStream input;
@@ -21,8 +22,7 @@ public class CustomClientSocket{
 
     protected volatile BufferSerializer buffer;
 
-    public CustomClientSocket(Socket socket, Pipe inputPipe, Pipe outputPipe)
-    {
+    public CustomClientSocket(Socket socket, Pipe inputPipe, Pipe outputPipe) {
         this.inputPipe = inputPipe;
         this.outputPipe = outputPipe;
         this.socket = socket;
@@ -36,21 +36,23 @@ public class CustomClientSocket{
     }
 
     public CustomClientSocket(String address, int port, Pipe inputPipe, Pipe outputPipe) throws IOException {
-        this(new Socket(address, port),inputPipe,outputPipe);
+        this(new Socket(address, port), inputPipe, outputPipe);
     }
 
     /**
      * Sending a packet to the other end of the pipe
+     *
      * @param p
      */
-    public void sendPacket(Packet p)
-    {
-        BufferSerializer result = (BufferSerializer) outputPipe.handle(this,p);
+    public void sendPacket(Packet p) {
+        BufferSerializer result = (BufferSerializer) outputPipe.handle(this, p);
         result.writeOut(outputStream);
     }
 
-    public void connected(){}//called if connected
-    public void disconnected(){
+    public void connected() {
+    }//called if connected
+
+    public void disconnected() {
         System.err.println("Killed or closed! Maybe Bufferoverflow, too long strings or packet size!!");
         try {
             input.close();
@@ -61,8 +63,7 @@ public class CustomClientSocket{
         }
     }
 
-    private void init()
-    {
+    private void init() {
         try {
 
             input = new BufferedInputStream(socket.getInputStream());
@@ -73,22 +74,19 @@ public class CustomClientSocket{
             connected();
 
             int result = 0;
-            do
-            {
-                synchronized (buffer)
-                {
-                    if(input.available() > 0) {
+            do {
+                synchronized (buffer) {
+                    if (input.available() > 0) {
                         result = buffer.readIn(input);
                         Object obj = null;
                         do {
-                            obj = inputPipe.handle(this,buffer);
-                        }while(obj != null); //while loop is because, if there are more buffered packets!
-                    }else
-                    {
-                        if(socket.isConnected() == false)break; //handle over keep alive packets!
+                            obj = inputPipe.handle(this, buffer);
+                        } while (obj != null); //while loop is because, if there are more buffered packets!
+                    } else {
+                        if (socket.isConnected() == false) break; //handle over keep alive packets!
                     }
                 }
-            }while(result != -1); //also killed by overflowing buffer;
+            } while (result != -1); //also killed by overflowing buffer;
             //TODO: DETECT BROKEN CONNECTION THROUGHT HEARTH BEAT PACKETS AND THROUGH EXTERN INTERRUP ON THE disconnect() FUNKION
             disconnected();
 

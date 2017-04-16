@@ -14,8 +14,7 @@ public class PacketOutputHandler implements Handler<Packet, BufferSerializer> {
     public BufferSerializer handle(CustomClientSocket socket, Packet in) {
         BufferSerializer serializer = new BufferSerializer();
         int packetID = PacketManager.getInstance().getIDForPacket(in);
-        if(packetID == -1)
-        {
+        if (packetID == -1) {
             try {
                 throw new Exception("Packet is not registered Exception!");
             } catch (Exception e) {

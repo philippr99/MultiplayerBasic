@@ -11,7 +11,7 @@ import java.net.Socket;
 /**
  * Created by chome on 4/16/17.
  */
-public class CustomConnectedClient extends CustomClientSocket{
+public class CustomConnectedClient extends CustomClientSocket {
 
     public CustomConnectedClient(Socket socket, Pipe inputPipe, Pipe outputPipe) {
         super(socket, inputPipe, outputPipe);
@@ -23,15 +23,15 @@ public class CustomConnectedClient extends CustomClientSocket{
 
     @Override
     public void connected() {
-        System.out.println("Connected -> "+socket.getInetAddress());
+        System.out.println("Connected -> " + socket.getInetAddress());
         sendPacket(new IntegerPacket(8)); //sending IntegerPacket
-        sendPacket(new StringPacket("Test,Test","Second Test"));
+        sendPacket(new StringPacket("Test,Test", "Second Test"));
         sendPacket(new IntegerPacket(1234)); //sending IntegerPacket
         sendPacket(new IntegerPacket(9976)); //sending IntegerPacket
     }
 
     @Override
     public void disconnected() {
-        System.out.println("Disconnected -> "+socket.getInetAddress());
+        System.out.println("Disconnected -> " + socket.getInetAddress());
     }
 }

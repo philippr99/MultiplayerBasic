@@ -1,8 +1,7 @@
 package net.philippr99.networklib.pipe;
-import net.philippr99.networklib.CustomClientSocket;
-import net.philippr99.networklib.intern.BufferSerializer;
 
-import java.util.HashMap;
+import net.philippr99.networklib.CustomClientSocket;
+
 import java.util.LinkedHashMap;
 import java.util.Map;
 
@@ -11,20 +10,17 @@ import java.util.Map;
  */
 public class Pipe {
 
-    private Map<String,Handler> handlers = new LinkedHashMap<String,Handler>();
+    private Map<String, Handler> handlers = new LinkedHashMap<String, Handler>();
 
-    public Pipe()
-    {
+    public Pipe() {
 
     }
 
-    public Object handle(CustomClientSocket socket, Object element)
-    {
+    public Object handle(CustomClientSocket socket, Object element) {
         Object input = element;
-        for(Handler h : handlers.values())
-        {
-            if(input == null)return null;
-            input = h.handle(socket,input);
+        for (Handler h : handlers.values()) {
+            if (input == null) return null;
+            input = h.handle(socket, input);
         }
 
         return input;
@@ -32,13 +28,13 @@ public class Pipe {
 
     /**
      * Adding an handler accessible by the name
+     *
      * @param name
      * @param handler
      */
-    public Pipe addHandler(String name, Handler handler)
-    {
-        handlers.put(name,handler);
-        System.out.println("Added: "+handler.getClass().getName());
+    public Pipe addHandler(String name, Handler handler) {
+        handlers.put(name, handler);
+        System.out.println("Added: " + handler.getClass().getName());
         return this;
     }
 }

@@ -4,8 +4,6 @@ import net.philippr99.networklib.CustomClientSocket;
 import net.philippr99.networklib.intern.BufferSerializer;
 import net.philippr99.networklib.pipe.Handler;
 
-import java.nio.Buffer;
-
 /**
  * Created by chome on 4/15/17.
  */

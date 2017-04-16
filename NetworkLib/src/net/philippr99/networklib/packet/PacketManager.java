@@ -1,8 +1,5 @@
 package net.philippr99.networklib.packet;
 
-import com.sun.xml.internal.bind.v2.runtime.reflect.Lister;
-
-import java.util.ArrayList;
 import java.util.HashMap;
 
 /**
@@ -10,30 +7,26 @@ import java.util.HashMap;
  */
 public class PacketManager {
     private static PacketManager instance;
+    private HashMap<Integer, Class<?>> packets = new HashMap<Integer, Class<?>>();
 
-    private PacketManager()
-    {
+    private PacketManager() {
         instance = this;
     }
 
-    public static PacketManager getInstance()
-    {
-        if(instance == null)new PacketManager();
+    public static PacketManager getInstance() {
+        if (instance == null) new PacketManager();
         return instance;
     }
 
-    private HashMap<Integer,Class<?>> packets = new HashMap<Integer,Class<?>>();
-
     /**
      * Returns Packet ID or -1 for not finding this packet
+     *
      * @param p
      * @return
      */
-    public int getIDForPacket(Packet p)
-    {
-        for(int key : packets.keySet())
-        {
-            if(packets.get(key).getName().equalsIgnoreCase(p.getClass().getName()))return key;
+    public int getIDForPacket(Packet p) {
+        for (int key : packets.keySet()) {
+            if (packets.get(key).getName().equalsIgnoreCase(p.getClass().getName())) return key;
         }
 
         return -1;
@@ -41,12 +34,12 @@ public class PacketManager {
 
     /**
      * Returns packet or null
+     *
      * @param id
      * @return
      */
-    public Packet getPacketForID(int id)
-    {
-        if(packets.containsKey(id)){
+    public Packet getPacketForID(int id) {
+        if (packets.containsKey(id)) {
             Class<?> packetclass = packets.get(id);
             try {
                 Packet p = (Packet) packetclass.newInstance();
@@ -61,7 +54,7 @@ public class PacketManager {
         return null;
     }
 
-    public void addPacket(int id, Class<?> clazz){
-        packets.put(id,clazz);
+    public void addPacket(int id, Class<?> clazz) {
+        packets.put(id, clazz);
     }
 }

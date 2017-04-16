@@ -14,7 +14,10 @@ public class PacketCreatorHandler implements Handler<BufferSerializer, Packet> {
     public Packet handle(CustomClientSocket socket, BufferSerializer in) {
         int id = in.readInt();
         Packet packet = PacketManager.getInstance().getPacketForID(id);
-        if(packet == null)return null;
+        if (packet == null) {
+            System.err.println("Can't find packetID: " + id);
+            return null;
+        }
 
         packet.read(in);
         return packet;
