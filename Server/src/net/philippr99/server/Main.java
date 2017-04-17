@@ -1,8 +1,8 @@
 package net.philippr99.server;
 
-import net.philippr99.customnetworking.packets.HeartbeatPacket;
-import net.philippr99.customnetworking.packets.LocationPacket;
-import net.philippr99.customnetworking.server.ServerPacketHandler;
+import net.philippr99.networking.packets.HeartbeatPacket;
+import net.philippr99.networking.packets.LocationPacket;
+import net.philippr99.networking.server.ServerPacketHandler;
 import net.philippr99.networklib.*;
 import net.philippr99.networklib.handler.PacketCreatorHandler;
 import net.philippr99.networklib.handler.PacketOutputHandler;

@@ -1,8 +1,8 @@
 package net.teammagic.mpgame;
 
-import net.philippr99.customnetworking.client.ClientPacketHandler;
-import net.philippr99.customnetworking.packets.HeartbeatPacket;
-import net.philippr99.customnetworking.packets.LocationPacket;
+import net.philippr99.networking.client.ClientPacketHandler;
+import net.philippr99.networking.packets.HeartbeatPacket;
+import net.philippr99.networking.packets.LocationPacket;
 import net.philippr99.networklib.CustomClientSocket;
 import net.philippr99.networklib.handler.PacketCreatorHandler;
 import net.philippr99.networklib.handler.PacketOutputHandler;

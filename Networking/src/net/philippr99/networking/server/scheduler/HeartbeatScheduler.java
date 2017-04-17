@@ -1,6 +1,6 @@
-package net.philippr99.customnetworking.server.scheduler;
+package net.philippr99.networking.server.scheduler;
 
-import net.philippr99.customnetworking.packets.HeartbeatPacket;
+import net.philippr99.networking.packets.HeartbeatPacket;
 import net.philippr99.networklib.CustomClientSocket;
 
 /**

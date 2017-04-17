@@ -1,4 +1,4 @@
-package net.philippr99.customnetworking.packets;
+package net.philippr99.networking.packets;
 
 import net.philippr99.networklib.intern.BufferSerializer;
 import net.philippr99.networklib.packet.Packet;

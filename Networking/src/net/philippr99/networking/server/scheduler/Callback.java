@@ -1,4 +1,4 @@
-package net.philippr99.customnetworking.server.scheduler;
+package net.philippr99.networking.server.scheduler;
 
 /**
  * Created by chome on 4/16/17.
