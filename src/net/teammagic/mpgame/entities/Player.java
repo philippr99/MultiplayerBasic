@@ -1,18 +1,18 @@
-package net.teammagic.mpgame;
+package net.teammagic.mpgame.entities;
 
 import java.awt.*;
 
 import static java.lang.Math.sqrt;
 
-public class OwnPlayer extends Player implements Runnable {
+public class Player extends Entity implements Runnable {
     public boolean useKeyboard = true;
     private int mouseX, mouseY;
 
-    public OwnPlayer(double x, double y, double w, double h) {
+    public Player(double x, double y, double w, double h) {
         super(x, y, w, h);
     }
 
-    public OwnPlayer(double x, double y) {
+    public Player(double x, double y) {
         super(x, y);
     }
 

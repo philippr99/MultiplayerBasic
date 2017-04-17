@@ -1,4 +1,6 @@
-package net.teammagic.mpgame;
+package net.teammagic.mpgame.action;
+
+import net.teammagic.mpgame.PlayGround;
 
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
@@ -14,16 +16,16 @@ public class MultiKeyPressListener extends KeyAdapter {
         for (Integer c : pressed) {
             switch (c) {
                 case KeyEvent.VK_UP:
-                    PlayGround.ownPlayer.y -= PlayGround.ownPlayer.speed;
+                    PlayGround.player.y -= PlayGround.player.speed;
                     break;
                 case KeyEvent.VK_DOWN:
-                    PlayGround.ownPlayer.y += PlayGround.ownPlayer.speed;
+                    PlayGround.player.y += PlayGround.player.speed;
                     break;
                 case KeyEvent.VK_RIGHT:
-                    PlayGround.ownPlayer.x += PlayGround.ownPlayer.speed;
+                    PlayGround.player.x += PlayGround.player.speed;
                     break;
                 case KeyEvent.VK_LEFT:
-                    PlayGround.ownPlayer.x -= PlayGround.ownPlayer.speed;
+                    PlayGround.player.x -= PlayGround.player.speed;
                     break;
             }
         }
