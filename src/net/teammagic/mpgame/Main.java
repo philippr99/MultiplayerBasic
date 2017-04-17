@@ -9,11 +9,13 @@ import net.philippr99.networklib.handler.PacketOutputHandler;
 import net.philippr99.networklib.handler.PacketSizePrintHandler;
 import net.philippr99.networklib.handler.PacketSplitterHandler;
 import net.philippr99.networklib.packet.PacketManager;
+import net.philippr99.networklib.packets.DoublePacket;
 import net.philippr99.networklib.packets.IntegerPacket;
 import net.philippr99.networklib.packets.StringPacket;
 import net.philippr99.networklib.pipe.Pipe;
 
 import java.io.IOException;
+import java.util.Random;
 
 public class Main {
     public static void main(String[] args) {
@@ -27,6 +29,7 @@ public class Main {
         PacketManager.getInstance().addPacket(0x01, IntegerPacket.class);
         PacketManager.getInstance().addPacket(0x02, StringPacket.class);
         PacketManager.getInstance().addPacket(0x03, LocationPacket.class);
+        PacketManager.getInstance().addPacket(0x04, DoublePacket.class);
         try {
             CustomClientSocket client = new CustomClientSocket("localhost",
                     5088,
@@ -38,8 +41,15 @@ public class Main {
                             addHandler("PacketOutputHandler", new PacketOutputHandler()).
                             addHandler("PacketSizePrintHandler", new PacketSizePrintHandler()));
             //Little test
-            Thread.sleep(100);
-            client.sendPacket(new StringPacket("Client Connected", "Now ...."));
+            while(true)
+            {
+                Thread.sleep(5000);
+                double d = new Random().nextDouble();
+                System.out.println("Sent double: "+d);
+                client.sendPacket(new StringPacket("Client Connected", "Now ...."));
+                client.sendPacket(new DoublePacket(d));
+            }
+
 
         } catch (IOException e) {
             e.printStackTrace();

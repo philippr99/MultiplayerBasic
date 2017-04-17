@@ -3,6 +3,7 @@ package net.philippr99.customnetworking.server;
 import net.philippr99.networklib.CustomClientSocket;
 import net.philippr99.networklib.packet.Packet;
 import net.philippr99.networklib.packet.PacketHandler;
+import net.philippr99.networklib.packets.DoublePacket;
 import net.philippr99.networklib.packets.IntegerPacket;
 import net.philippr99.networklib.packets.StringPacket;
 
@@ -18,6 +19,9 @@ public class ServerPacketHandler extends PacketHandler {
         } else if (p instanceof StringPacket) {
             System.err.println("String: " + ((StringPacket) p).str + ": " + ((StringPacket) p).str2);
             System.err.println("Received by: " + socket.socket.getRemoteSocketAddress().toString());
+        }else if(p instanceof DoublePacket)
+        {
+            System.err.println("Received DoublePacket: " + ((DoublePacket) p).i);
         }
     }
 }
