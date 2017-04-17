@@ -1,4 +1,4 @@
-package net.philippr99.customnetworking.client;
+package net.philippr99.networking.client;
 
 import net.philippr99.networklib.CustomClientSocket;
 import net.philippr99.networklib.packet.Packet;

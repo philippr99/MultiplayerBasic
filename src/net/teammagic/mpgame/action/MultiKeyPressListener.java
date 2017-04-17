@@ -31,6 +31,7 @@ public class MultiKeyPressListener extends KeyAdapter {
         }
     }
 
+
     public synchronized void keyReleased(KeyEvent e) {
         pressed.remove(e.getKeyCode());
     }
