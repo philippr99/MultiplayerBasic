@@ -9,7 +9,6 @@ import net.philippr99.networklib.packet.Packet;
 public class HeartbeatPacket implements Packet {
 
     public HeartbeatPacket() {
-
     }
 
     @Override
